@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import VueTyping from 'vue-typing'
+import VueTyping from '../../src/index'
 export default {
   name: 'app',
   components: {
