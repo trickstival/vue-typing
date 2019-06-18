@@ -1,9 +1,20 @@
 <template>
   <div id="app">
     <div>
+      <div>Normal Typing:</div>
       <vue-typing :text="myText" />
     </div>
-    <button @click="type">Type it!</button>
+    <div>
+      <div>framerate = 2</div>
+      <vue-typing :text="myText" :framerate="2" />
+    </div>
+    <div>
+      <div>framerate = 3</div>
+      <vue-typing :text="myText" :framerate="3" />
+    </div>
+    <div>
+      <button @click="type">Type it!</button>
+    </div>
   </div>
 </template>
 
@@ -17,7 +28,7 @@ export default {
   data () {
     return {
       possibleTexts: [
-        `I'm typing one character per frame`,
+        `I should be a professional typer`,
         'Awesome guysssss',
         `Yeah, I'm being typed`
       ],
@@ -35,6 +46,8 @@ export default {
 
 <style>
 #app {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
