@@ -2,6 +2,13 @@
 
 Vue typing is an open-source Vue.js component that provides typing-like effect
 
+## Install
+```bash
+yarn add vue-typing
+# or
+npm install vue-typing
+```
+
 ## Usage
 ```js
 import VueTyping from 'vue-typing'
