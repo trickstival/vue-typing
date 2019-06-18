@@ -28,8 +28,8 @@ export default {
 ```
 
 ## props
-- text: String
+- `text`: String
 The text that is going to be typed into the component
 
-- framerate: Number (default 1)
+- `framerate`: Number (default 1)
 The number of frames for each character. Set it higher if you want to make the typing slower.
