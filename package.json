@@ -1,0 +1,24 @@
+{
+  "name": "vue-typing",
+  "version": "1.0.0",
+  "description": "A Component with keyboard typing effect",
+  "main": "index.js",
+  "author": "trickstival",
+  "license": "MIT",
+  "scripts": {
+    "dev": "jest --watchAll"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@types/jest": "^24.0.15",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-loader": "^8.0.6",
+    "jest": "^24.8.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.34.0"
+  }
+}
