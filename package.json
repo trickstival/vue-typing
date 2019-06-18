@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A Component with keyboard typing effect",
   "main": "index.js",
+  "repository": "https://github.com/trickstival/vue-typing",
   "author": "trickstival",
   "license": "MIT",
   "scripts": {
