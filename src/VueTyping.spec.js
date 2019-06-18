@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils'
-import VueTyping from './'
+import VueTyping from '.'
 
 function frame () {
     return new Promise(resolve => window.requestAnimationFrame(resolve))
