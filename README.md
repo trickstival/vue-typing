@@ -1,4 +1,5 @@
 # Vue Typing
+[Check the Demo](https://nifty-albattani-956460.netlify.com/)
 
 Vue typing is an open-source Vue.js component that provides typing-like effect
 
