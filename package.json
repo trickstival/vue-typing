@@ -1,12 +1,17 @@
 {
   "name": "vue-typing",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Component with keyboard typing effect",
   "main": "src/index.js",
   "repository": "https://github.com/trickstival/vue-typing",
   "author": "trickstival",
   "license": "MIT",
-  "keywords": ["typing", "type effect", "vue type", "vuejs typing component"],
+  "keywords": [
+    "typing",
+    "type effect",
+    "vue type",
+    "vuejs typing component"
+  ],
   "scripts": {
     "dev": "jest --watchAll"
   },
