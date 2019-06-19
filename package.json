@@ -8,9 +8,9 @@
   "license": "MIT",
   "keywords": [
     "typing",
-    "type effect",
-    "vue type",
-    "vuejs typing component"
+    "effect",
+    "vue",
+    "component"
   ],
   "scripts": {
     "dev": "jest --watchAll"
