@@ -5,12 +5,12 @@
       <vue-typing :text="myText" />
     </div>
     <div>
-      <div>framerate = 2</div>
-      <vue-typing :text="myText" :framerate="2" />
+      <div>framerate = 5</div>
+      <vue-typing :text="myText" :framerate="5" />
     </div>
     <div>
-      <div>framerate = 3</div>
-      <vue-typing :text="myText" :framerate="3" />
+      <div>framerate = 10</div>
+      <vue-typing :text="myText" :framerate="10" />
     </div>
     <div>
       <button @click="type">Type it!</button>
