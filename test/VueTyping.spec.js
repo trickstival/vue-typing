@@ -1,57 +1,65 @@
-import { createLocalVue, mount } from '@vue/test-utils'
-import VueTyping from '../src'
+import { createLocalVue, mount } from "@vue/test-utils";
+import VueTyping from "../src";
 
-function frame () {
-    return new Promise(resolve => window.requestAnimationFrame(resolve))
+function frame() {
+    return new Promise(resolve => window.requestAnimationFrame(resolve));
 }
 
-async function frames (numberOfFrames = 2) {
-    let currentFrame = 0
+async function frames(numberOfFrames = 2) {
+    let currentFrame = 0;
     while (currentFrame < numberOfFrames) {
-        await frame()
-        currentFrame++
+        await frame();
+        currentFrame++;
     }
 }
 
-describe('Basic rendering', () => {
-    let Vue, wrapper
+describe("Basic rendering", () => {
+    let Vue, wrapper;
     beforeEach(() => {
-        Vue = createLocalVue()
+        Vue = createLocalVue();
         wrapper = mount(VueTyping, {
             propsData: {
-                text: 'Hello World!'
+                text: "Hello World!",
+                cursorAnimationType: {
+                    blinking: false,
+                    cursor: "|",
+                    color: "red",
+                    framerate: 24
+                }
             },
             localVue: Vue
-        })
-    })
+        });
+    });
 
-    it('renders initial content', () => {
-        expect(wrapper.html()).toBe('<span>Hello World!</span>')
-    })
-    
-    it('Types one character per frame', async () => {
-        const text = 'Hey Guys, sup???'
-        wrapper.setProps({ text })
-        let currentText = ''
+    it("renders initial content", () => {
+        expect(wrapper.html()).toBe(
+            '<div><span>Hello World!</span><span style="opacity: 100; color: red;">|</span></div>'
+        );
+    });
+
+    it("Types one character per frame", async () => {
+        const text = "Hey Guys, sup???";
+        wrapper.setProps({ text });
+        let currentText = "";
         for (const char of text) {
-            await frame()
-            currentText += char
-            expect(wrapper.element.textContent).toBe(currentText)
+            await frame();
+            currentText += char;
+            expect(wrapper.element.textContent).toBe(currentText + "|");
         }
-    })
+    });
 
-    it('Types one letter for each 2 frames when framerate is set to 2', async () => {
-        const text = 'Its me again, folks@!!'
-        wrapper.setProps({ text, framerate: 2 })
+    it("Types one letter for each 2 frames when framerate is set to 2", async () => {
+        const text = "Its me again, folks@!!";
+        wrapper.setProps({ text, framerate: 2 });
 
         // iterate over the array and count 2 frames each iteration
-        let currentText = ''
+        let currentText = "";
         for (const char of text) {
-            await frames()
-            currentText += char
-            expect(wrapper.element.textContent).toBe(currentText)
+            await frames();
+            currentText += char;
+            expect(wrapper.element.textContent).toBe(currentText + "|");
         }
-    })
+    });
 
     // TODO: Make it work for fractional framerates
     // it('Types 2 letters for each frame when framerate is set to .5', async () => {
@@ -79,4 +87,4 @@ describe('Basic rendering', () => {
     //         expect(wrapper.element.textContent).toBe(currentText)
     //     }
     // })
-})
+});
