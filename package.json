@@ -6,15 +6,10 @@
   "repository": "https://github.com/trickstival/vue-typing",
   "author": "trickstival",
   "license": "MIT",
-  "keywords": [
-    "typing",
-    "effect",
-    "vue",
-    "component"
-  ],
   "scripts": {
     "dev": "jest --watchAll",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "lint": "eslint src/*.js"
   },
   "dependencies": {
     "vue": "^2.6.10"
@@ -24,8 +19,20 @@
     "@babel/preset-env": "^7.4.5",
     "@types/jest": "^24.0.15",
     "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
+    "eslint": "^5.16.0",
+    "eslint-plugin-jest": "^22.6.4",
     "jest": "^24.8.0",
     "vue-template-compiler": "^2.6.10"
+  },
+  "keywords": [
+    "typing",
+    "effect",
+    "vue",
+    "component"
+  ],
+  "engines": {
+    "node" : ">=8.10"
   }
 }
