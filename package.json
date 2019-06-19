@@ -6,6 +6,7 @@
   "repository": "https://github.com/trickstival/vue-typing",
   "author": "trickstival",
   "license": "MIT",
+  "keywords": ["typing", "type effect", "vue type", "vuejs typing component"],
   "scripts": {
     "dev": "jest --watchAll"
   },
