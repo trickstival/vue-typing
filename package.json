@@ -13,7 +13,8 @@
     "component"
   ],
   "scripts": {
-    "dev": "jest --watchAll"
+    "dev": "jest --watchAll",
+    "test:unit": "jest"
   },
   "dependencies": {
     "vue": "^2.6.10"
