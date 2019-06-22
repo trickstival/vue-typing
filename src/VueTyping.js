@@ -18,7 +18,7 @@ export default {
         }
     },
     watch: {
-        text (value) {
+        text () {
             this.scheduleTyping()
         },
         framerate () {
@@ -33,7 +33,7 @@ export default {
             this.speechFrameFragment = ''
             let idx = 0
             let frameCount = 0
-            const cb = this.lastTypingCb = (acc) => {
+            const cb = this.lastTypingCb = () => {
                 const wasCancelled = cb !== this.lastTypingCb
                 if (this.speechFrameFragment.length >= text.length || wasCancelled) {
                     return
