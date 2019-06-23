@@ -41,3 +41,7 @@ The text that is going to be typed into the component
 
 - `framerate`: Number (default 1)
 The number of frames for each character. Set it higher if you want to make the typing slower.
+
+## events
+- `done`
+This event is emitted when the typing animation is over or when it is overwritten by another text typing

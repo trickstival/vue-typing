@@ -1,3 +1,5 @@
+import { FrameIterator } from './utils'
+
 export default {
     render (h) {
         return h('span', this.speechFrameFragment)
@@ -10,11 +12,16 @@ export default {
         text: {
             type: String,
             default: ''
+        },
+        rewrite: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
         return {
-            speechFrameFragment: ''
+            speechFrameFragment: '',
+            frameIterator: new FrameIterator()
         }
     },
     watch: {
@@ -26,30 +33,41 @@ export default {
         }
     },
     methods: {
-        scheduleTyping () {
+        async scheduleTyping () {
             const { text } = this
-            const framerate = this.framerate - 1
             this.isHidden = false
-            this.speechFrameFragment = ''
-            let idx = 0
-            let frameCount = 0
-            const cb = this.lastTypingCb = () => {
-                const wasCancelled = cb !== this.lastTypingCb
-                if (this.speechFrameFragment.length >= text.length || wasCancelled) {
-                    return
-                }
 
-                if (frameCount === framerate) {
-                    this.speechFrameFragment += text[idx]
-                    idx++
-                    frameCount = 0
-                } else {
-                    frameCount++
-                }
-                requestAnimationFrame(cb)
+            if (this.rewrite) {
+                await this.deleteText()
+            } else {
+                this.speechFrameFragment = ''
             }
 
-            requestAnimationFrame(cb)
+            let idx = 0
+            this.frameIterator
+                .schedule((breakLoop) => {
+                    if (this.speechFrameFragment.length >= text.length) {
+                        breakLoop()
+                        return
+                    }
+                    this.speechFrameFragment += text[idx]
+                    idx++
+                }, this.framerate)
+                .then(() => {
+                    this.$emit('done')
+                })
+        },
+        deleteText () {
+            let idx = this.speechFrameFragment.length
+            return this.frameIterator
+                .schedule((breakLoop) => {
+                    if (idx === 0) {
+                        breakLoop()
+                        return
+                    }
+                    this.speechFrameFragment = this.speechFrameFragment.substr(0, idx)
+                    idx--
+                })
         }
     },
     created () {

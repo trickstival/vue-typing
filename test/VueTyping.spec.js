@@ -1,17 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils'
 import VueTyping from '../src'
-
-function frame () {
-    return new Promise(resolve => window.requestAnimationFrame(resolve))
-}
-
-async function frames (numberOfFrames = 2) {
-    let currentFrame = 0
-    while (currentFrame < numberOfFrames) {
-        await frame()
-        currentFrame++
-    }
-}
+import { frame, frames } from '../src/utils'
 
 describe('Basic rendering', () => {
     let Vue, wrapper
@@ -28,7 +17,7 @@ describe('Basic rendering', () => {
     it('renders initial content', () => {
         expect(wrapper.html()).toBe('<span>Hello World!</span>')
     })
-    
+
     it('Types one character per frame', async () => {
         const text = 'Hey Guys, sup???'
         wrapper.setProps({ text })
