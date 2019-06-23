@@ -61,13 +61,13 @@ export default {
             let idx = this.speechFrameFragment.length
             return this.frameIterator
                 .schedule((breakLoop) => {
-                    if (idx === 0) {
+                    if (idx === -1) {
                         breakLoop()
                         return
                     }
                     this.speechFrameFragment = this.speechFrameFragment.substr(0, idx)
                     idx--
-                })
+                }, this.framerate)
         }
     },
     created () {

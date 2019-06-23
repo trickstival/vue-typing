@@ -1,2 +1,2 @@
 export { default } from './VueTyping'
-export { default as MultiTyping } from './MultiTyping'
+export { default as AutoTyping } from './AutoTyping'

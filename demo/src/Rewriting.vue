@@ -11,13 +11,22 @@
         </div>
         <div>
             Automatic rewriting (using AutoTyping Component)
-
+            <div>
+                <auto-typing
+                    :textList="['First Text', 'Second one', 'Third text']"
+                    :framerate="4"
+                />
+            </div>
         </div>
     </section>
 </template>
 
 <script>
+import { AutoTyping } from '../../src/'
 export default {
+    components: {
+        AutoTyping
+    },
     data () {
         return {
             basicRewriteText: `I'm gonna be rewritten`

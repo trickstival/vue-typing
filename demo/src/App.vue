@@ -2,7 +2,7 @@
   <div id="app">
     <h2>Framerate</h2>
     <framerates />
-    <h2>Rewriting with MultiTyping Component</h2>
+    <h2>Rewriting Text</h2>
     <rewriting />
   </div>
 </template>
