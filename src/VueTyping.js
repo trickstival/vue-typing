@@ -3,18 +3,18 @@ import { FrameIterator } from './utils'
 export default {
     render(h) {
         if (this.disableCursor) {
-            return h("div", [h("span", this.speechFrameFragment)])
+            return h('div', [h('span', this.speechFrameFragment)])
         } else
-            return h("div", [
-                h("span", this.speechFrameFragment),
+            return h('div', [
+                h('span', this.speechFrameFragment),
                 h(
-                    "span",
+                    'span',
                     {
                         style: {
                             opacity: this.cursorOpacity,
                             color: this.cursorOptions.color
                         },
-                        class: { "typing-cursor": true }
+                        class: { 'typing-cursor': true }
                     },
                     this.cursorOptions.cursor
                 )
@@ -38,8 +38,8 @@ export default {
             default: () => {
                 return {
                     blinking: true,
-                    cursor: "|",
-                    color: "black",
+                    cursor: '|',
+                    color: 'black',
                     framerate: 24
                 }
             }
@@ -101,7 +101,6 @@ export default {
                         breakLoop()
                         return
                     }
-                    console.log('oi')
                     this.speechFrameFragment = this.speechFrameFragment.substr(0, idx)
                     idx--
                 }, this.framerate)

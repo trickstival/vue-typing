@@ -18,6 +18,6 @@
     "rules": {
         "semi": [2, "never"],
         "indent": ["error", 4],
-        "quotes": ["single", { "allowTemplateLiterals": true }]
+        "quotes": [2, "single", { "allowTemplateLiterals": true }]
     }
 }

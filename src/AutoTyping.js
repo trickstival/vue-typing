@@ -1,4 +1,4 @@
-import VueTyping from "."
+import VueTyping from '.'
 
 export default {
     props: {
@@ -33,6 +33,5 @@ export default {
     },
     mounted () {
         this.$set(this, 'currentText' ,this.textList[0])
-        console.log('setting')
     }
 }
