@@ -6,7 +6,7 @@
                 <vue-typing :text="basicRewriteText" :rewrite="true" />
             </div>
             <button @click="rewrite">
-                rewrite
+                rewrite once
             </button>
         </div>
         <div>
