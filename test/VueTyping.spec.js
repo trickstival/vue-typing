@@ -28,25 +28,25 @@ const getSandbox = (wrapper) => {
     }
 }
 
-describe("Basic rendering", () => {
+describe('Basic rendering', () => {
     let Vue, wrapper, sandbox
     beforeEach(() => {
         Vue = createLocalVue()
         wrapper = mount(VueTyping, {
             propsData: {
-                text: "Hello World!"
+                text: 'Hello World!'
             },
             localVue: Vue
         })
         sandbox = getSandbox(wrapper)
     })
 
-    it("renders initial content", () => {
-        expect(wrapper.html()).toBe("<div><span>Hello World!</span></div>")
+    it('renders initial content', () => {
+        expect(wrapper.html()).toBe('<div><span>Hello World!</span></div>')
     })
 
-    it("Types one character per frame", async () => {
-        const text = "Hey Guys, sup???"
+    it('Types one character per frame', async () => {
+        const text = 'Hey Guys, sup???'
         wrapper.setProps({ text })
         await sandbox.testTyping(text)
     })
@@ -68,8 +68,8 @@ describe("Basic rendering", () => {
         sandbox.testTyping(text)
     })
 
-    it("Types one letter for each 2 frames when framerate is set to 2", async () => {
-        const text = "Its me again, folks@!!"
+    it('Types one letter for each 2 frames when framerate is set to 2', async () => {
+        const text = 'Its me again, folks@!!'
         wrapper.setProps({ text, framerate: 2 })
 
         // iterate over the array and count 2 frames each iteration
@@ -79,18 +79,18 @@ describe("Basic rendering", () => {
 
 // Cursor Rendering
 
-describe("cursor Rendering", () => {
+describe('cursor Rendering', () => {
     let Vue, wrapper, sandbox
     beforeEach(() => {
         Vue = createLocalVue()
         wrapper = mount(VueTyping, {
             propsData: {
-                text: "Hello World!",
+                text: 'Hello World!',
                 disableCursor: false,
                 cursorOptions: {
                     blinking: false,
-                    cursor: "|",
-                    color: "black",
+                    cursor: '|',
+                    color: 'black',
                     framerate: 24
                 }
             },
@@ -99,14 +99,14 @@ describe("cursor Rendering", () => {
         sandbox = getSandbox(wrapper)
     })
 
-    it("renders initial content", () => {
+    it('renders initial content', () => {
         expect(wrapper.html()).toBe(
             '<div><span>Hello World!</span><span class="typing-cursor" style="opacity: 1; color: black;">|</span></div>'
         )
     })
 
-    it("Types one character per frame with cursor", async () => {
-        const text = "Hey Guys, sup???"
+    it('Types one character per frame with cursor', async () => {
+        const text = 'Hey Guys, sup???'
         wrapper.setProps({ text })
         let currentText = ''
         for (const char of text) {
@@ -116,8 +116,8 @@ describe("cursor Rendering", () => {
         }
     })
 
-    it("Types one letter for each 2 frames when framerate is set to 2 with cursor", async () => {
-        const text = "Its me again, folks@!!"
+    it('Types one letter for each 2 frames when framerate is set to 2 with cursor', async () => {
+        const text = 'Its me again, folks@!!'
         wrapper.setProps({ text, framerate: 2 })
 
         // iterate over the array and count 2 frames each iteration
@@ -128,24 +128,26 @@ describe("cursor Rendering", () => {
             expect(wrapper.element.textContent).toBe(currentText + '|')
         }
     })
-    it("Confirm that cursor is blinking", async () => {
-        const text = "Its me again, folks@!!"
+    it('Confirm that cursor is blinking', async () => {
+        const text = 'Its me again, folks@!!'
         wrapper.setProps({
             text,
             framerate: 15,
             cursorOptions: {
                 blinking: true,
-                cursor: "|",
-                color: "black",
+                cursor: '|',
+                color: 'black',
                 framerate: 2
             }
         })
         await frames(6)
-        let spanCursor = wrapper.findAll("span").at(1)
-        expect(spanCursor.attributes().style).toBe("opacity: 1; color: black;")
+        await wrapper.vm.$nextTick()
+        let spanCursor = wrapper.findAll('span').at(1)
+        expect(spanCursor.attributes().style).toBe('opacity: 1; color: black;')
         await frames(1)
-        spanCursor = wrapper.findAll("span").at(1)
-        expect(spanCursor.attributes().style).toBe("opacity: 0; color: black;")
+        await wrapper.vm.$nextTick()
+        spanCursor = wrapper.findAll('span').at(1)
+        expect(spanCursor.attributes().style).toBe('opacity: 0; color: black;')
     })
 })
 // TODO: Make it work for fractional framerates
