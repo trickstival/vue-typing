@@ -1,18 +1,20 @@
+import { FrameIterator } from './utils'
+
 export default {
     render(h) {
         if (this.disableCursor) {
-            return h("div", [h("span", this.speechFrameFragment)])
+            return h('div', [h('span', this.speechFrameFragment)])
         } else
-            return h("div", [
-                h("span", this.speechFrameFragment),
+            return h('div', [
+                h('span', this.speechFrameFragment),
                 h(
-                    "span",
+                    'span',
                     {
                         style: {
                             opacity: this.cursorOpacity,
                             color: this.cursorOptions.color
                         },
-                        class: { "typing-cursor": true }
+                        class: { 'typing-cursor': true }
                     },
                     this.cursorOptions.cursor
                 )
@@ -25,15 +27,19 @@ export default {
         },
         text: {
             type: String,
-            default: ""
+            default: ''
+        },
+        rewrite: {
+            type: Boolean,
+            default: false
         },
         cursorOptions: {
             type: Object,
             default: () => {
                 return {
                     blinking: true,
-                    cursor: "|",
-                    color: "black",
+                    cursor: '|',
+                    color: 'black',
                     framerate: 24
                 }
             }
@@ -45,7 +51,9 @@ export default {
     },
     data() {
         return {
-            speechFrameFragment: "",
+            speechFrameFragment: '',
+            frameIterator: new FrameIterator(),
+            cursorFrameIterator: new FrameIterator(),
             cursorOpacity: 0
         }
     },
@@ -61,54 +69,56 @@ export default {
         }
     },
     methods: {
-        scheduleTyping() {
+        async scheduleTyping () {
             const { text } = this
-            const framerate = this.framerate - 1
             this.isHidden = false
-            this.speechFrameFragment = ""
-            let idx = 0
-            let frameCount = 0
-            const cb = (this.lastTypingCb = () => {
-                const wasCancelled = cb !== this.lastTypingCb
-                if (
-                    this.speechFrameFragment.length >= text.length ||
-                    wasCancelled
-                ) {
-                    return
-                }
+            if (this.rewrite) {
+                await this.deleteText()
+            } else {
+                this.speechFrameFragment = ''
+            }
 
-                if (frameCount === framerate) {
+            let idx = 0
+            this.frameIterator
+                .schedule((breakLoop) => {
+                    if (this.speechFrameFragment.length >= text.length) {
+                        breakLoop()
+                        return
+                    }
                     this.speechFrameFragment += text[idx]
                     idx++
-                    frameCount = 0
-                } else {
-                    frameCount++
-                }
-                requestAnimationFrame(cb)
-            })
-
-            requestAnimationFrame(cb)
+                }, this.framerate)
+                .then(() => {
+                    this.$emit('done')
+                })
+        },
+        deleteText () {
+            let idx = this.speechFrameFragment.length
+            return this.frameIterator
+                .schedule((breakLoop) => {
+                    if (idx === -1) {
+                        breakLoop()
+                        return
+                    }
+                    this.speechFrameFragment = this.speechFrameFragment.substr(0, idx)
+                    idx--
+                }, this.framerate)
         },
         blinkingCursor() {
-            let frameCount = 0
+            const { framerate } = this.cursorOptions || this
+            const { blinking } = this.cursorOptions
             let blinkingToggle = false
-            const framerate = this.cursorOptions.framerate
-            const animationLoop = () => {
-                if (frameCount === framerate) {
-                    blinkingToggle = !blinkingToggle
-                    this.cursorOpacity = blinkingToggle ? 1 : 0
-                    frameCount = 0
-                } else {
-                    frameCount++
-                }
-                requestAnimationFrame(animationLoop)
+
+            if (!blinking) {
+                this.cursorOpacity = 1
+                return
             }
 
-            if (this.cursorOptions.blinking) {
-                requestAnimationFrame(animationLoop)
-            } else {
-                this.cursorOpacity = 1
-            }
+            this.cursorFrameIterator
+                .schedule(() => {
+                    blinkingToggle = !blinkingToggle
+                    this.cursorOpacity = blinkingToggle ? 1 : 0
+                }, framerate)
         }
     },
     created() {

@@ -41,24 +41,24 @@ export default {
 
 ## props
 
--   `text`: String
-    The text that is going to be typed into the component
+- `text`: String
+The text that is going to be typed into the component
 
--   `framerate`: Number (default 1)
-    The number of frames for each character. Set it higher if you want to make the typing slower.
+- `framerate`: Number (default 1)
+The number of frames for each character. Set it higher if you want to make the typing slower.
 
--   `cursorOptions` : Object (default : `{ blinking: true, cursor: "|", color: "black", framerate: 24}`)
-    An object that defines the cursor in the animation, with the following options :
-    -   `blinking`: `boolean`. defines if the cursor is blinking or not
-    -   `cursor`: `string`. defines what's the cursor character.
-    -   `color`: `CSS color string`, `hex value`, `rgb value` as defined in css. defines the color of the cursor.
-    -   `framerate`: `Number`. defines the speed in which the cursor blinks, if blinking is set to true. values should be positive integers
--   `disableCursor`: Boolean (default false) a prop that defines if the cursor is enabled or not.
+- `cursorOptions` : Object (default : `{ blinking: true, cursor: "|", color: "black", framerate: 24}`)
+An object that defines the cursor in the animation, with the following options :
+    -`blinking`: `boolean`. defines if the cursor is blinking or not
+    -`cursor`: `string`. defines what's the cursor character.
+    -`color`: `CSS color string`, `hex value`, `rgb value` as defined in css. defines the color of the cursor.
+    -`framerate`: `Number`. defines the speed in which the cursor blinks, if blinking is set to true. values should be positive integers
+-`disableCursor`: Boolean (default false) a prop that defines if the cursor is enabled or not.
 
 ## Utils
 
--   `cursorSpeed`
-    -   An exported objects that contains some default values to help setting the framerate for the cursor blinking animation
+-`cursorSpeed`
+    -An exported objects that contains some default values to help setting the framerate for the cursor blinking animation
 
 ```js
 export const CursorSpeed = {
@@ -78,4 +78,4 @@ new Vue({
 
 ## CSS Classes
 
--   the cursor selector has a class named `typing-cursor` that you can utilize with css to edit the cursor.
+-the cursor selector has a class named `typing-cursor` that you can utilize with css to edit the cursor.
