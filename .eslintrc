@@ -17,6 +17,7 @@
     },
     "rules": {
         "semi": [2, "never"],
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "quotes": ["single", { "allowTemplateLiterals": true }]
     }
 }

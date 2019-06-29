@@ -14,6 +14,32 @@ describe('Basic rendering', () => {
         })
     })
 
+    async function testTyping (text) {
+        let currentText = ''
+        for (const char of text) {
+            await frame()
+            currentText += char
+            expect(wrapper.element.textContent).toBe(currentText)
+        }
+    }
+
+    async function testDeleting (text) {
+        let currentText = ''
+        let idx = text.length
+        for (const char of text) {
+            await frame()
+            currentText = currentText.substr(0, idx)
+            expect(wrapper.element.textContent).toBe(currentText)
+            idx--
+        }
+    }
+
+    it('Basic rewriting', () => {
+        const text = 'Im gonna be rewritten'
+        wrapper.setProps({ text, rewrite: true })
+        testDeleting(text)
+    })
+
     it('renders initial content', () => {
         expect(wrapper.html()).toBe('<span>Hello World!</span>')
     })
@@ -21,12 +47,7 @@ describe('Basic rendering', () => {
     it('Types one character per frame', async () => {
         const text = 'Hey Guys, sup???'
         wrapper.setProps({ text })
-        let currentText = ''
-        for (const char of text) {
-            await frame()
-            currentText += char
-            expect(wrapper.element.textContent).toBe(currentText)
-        }
+        testTyping(text)
     })
 
     it('Types one letter for each 2 frames when framerate is set to 2', async () => {
