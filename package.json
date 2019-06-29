@@ -1,6 +1,6 @@
 {
   "name": "vue-typing",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A Component with keyboard typing effect",
   "main": "src/index.js",
   "repository": "https://github.com/trickstival/vue-typing",
