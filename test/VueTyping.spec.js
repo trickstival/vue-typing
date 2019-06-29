@@ -1,23 +1,24 @@
 import { createLocalVue, mount } from '@vue/test-utils'
 import VueTyping from '../src'
-import { frame, frames } from '../src/utils'
+import { replaceRaf } from 'raf-stub'
+
+replaceRaf()
 
 const getSandbox = (wrapper) => {
-    async function testTyping (text, framerate = 1) {
+    function testTyping (text, framerate = 1) {
         let currentText = ''
         for (const char of text) {
-            await frames(framerate)
+            requestAnimationFrame.step(framerate)
             currentText += char
             expect(wrapper.element.textContent).toBe(currentText)
         }
     }
-    async function testDeleting (text, framerate = 1) {
+    function testDeleting (text, framerate = 1) {
         let currentText = text
         let idx = text.length
-        for (const _ of text) {
-            await frames(framerate)
+        for (const _ of text + '.') {
+            requestAnimationFrame.step(framerate)
             currentText = currentText.substr(0, idx)
-            console.log(wrapper.element.textContent, currentText)
             expect(wrapper.element.textContent).toBe(currentText)
             idx--
         }
@@ -48,24 +49,23 @@ describe('Basic rendering', () => {
     it('Types one character per frame', async () => {
         const text = 'Hey Guys, sup???'
         wrapper.setProps({ text })
-        await sandbox.testTyping(text)
+        sandbox.testTyping(text)
     })
 
-    // TODO: I just cant make this test work
-    // it('Basic rewriting', async () => {
-    //     const text = 'Im gonna be rewritten'
-    //     const newText = 'it is done'
-    //     wrapper.setProps({ text, rewrite: true })
-    //     await sandbox.testTyping(text)
-    //     wrapper.setProps({ text: newText })
-    //     await sandbox.testDeleting(text)
-    //     await sandbox.testTyping(newText)
-    // })
+    it('Basic rewriting', async () => {
+        const text = 'Im gonna be rewritten'
+        const newText = 'it is done'
 
-    it('Types one character per frame', async () => {
-        const text = 'Hey Guys, sup???'
         wrapper.setProps({ text })
         sandbox.testTyping(text)
+        wrapper.setProps({ rewrite: true })
+        wrapper.setProps({ text: newText })
+
+        sandbox.testDeleting(text)
+        // TODO: I don't know why I have to wait for two frames here
+        requestAnimationFrame.step(2)
+        await wrapper.vm.$nextTick()
+        sandbox.testTyping(newText)
     })
 
     it('Types one letter for each 2 frames when framerate is set to 2', async () => {
@@ -110,7 +110,7 @@ describe('cursor Rendering', () => {
         wrapper.setProps({ text })
         let currentText = ''
         for (const char of text) {
-            await frame()
+            requestAnimationFrame.step()
             currentText += char
             expect(wrapper.element.textContent).toBe(currentText + '|')
         }
@@ -123,7 +123,7 @@ describe('cursor Rendering', () => {
         // iterate over the array and count 2 frames each iteration
         let currentText = ''
         for (const char of text) {
-            await frames(2)
+            requestAnimationFrame.step(2)
             currentText += char
             expect(wrapper.element.textContent).toBe(currentText + '|')
         }
@@ -140,12 +140,10 @@ describe('cursor Rendering', () => {
                 framerate: 2
             }
         })
-        await frames(6)
-        await wrapper.vm.$nextTick()
+        requestAnimationFrame.step()
         let spanCursor = wrapper.findAll('span').at(1)
         expect(spanCursor.attributes().style).toBe('opacity: 1; color: black;')
-        await frames(1)
-        await wrapper.vm.$nextTick()
+        requestAnimationFrame.step(3)
         spanCursor = wrapper.findAll('span').at(1)
         expect(spanCursor.attributes().style).toBe('opacity: 0; color: black;')
     })

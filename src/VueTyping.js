@@ -72,7 +72,6 @@ export default {
         async scheduleTyping () {
             const { text } = this
             this.isHidden = false
-
             if (this.rewrite) {
                 await this.deleteText()
             } else {
