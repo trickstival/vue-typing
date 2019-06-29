@@ -6,49 +6,66 @@
     </div>
     <div>
       <div>framerate = 5</div>
-      <vue-typing :text="myText" :framerate="5" />
+      <vue-typing
+        :text="myText"
+        :framerate="5"
+      />
     </div>
     <div>
       <div>framerate = 10</div>
-      <vue-typing :text="myText" :framerate="10" />
+      <vue-typing
+        :text="myText"
+        :framerate="10"
+      />
     </div>
     <div>
       <div>blinking cursor</div>
-      <vue-typing :text="myText" :framerate="10" :disableCursor="false" />
-    </div>
-   <div>
-      <div>solid cursor</div>
-      <vue-typing :text="myText" :framerate="10" :disableCursor="false" :cursorOptions="solidCursor" />
+      <vue-typing
+        :text="myText"
+        :framerate="10"
+        :disable-cursor="false"
+      />
     </div>
     <div>
-      <button @click="type">Type it!</button>
+      <div>solid cursor</div>
+      <vue-typing
+        :text="myText"
+        :framerate="10"
+        :disable-cursor="false"
+        :cursor-options="solidCursor"
+      />
+    </div>
+    <div>
+      <button @click="type">
+        Type it!
+      </button>
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      possibleTexts: [
-        `I should be a professional typer`,
-        'Awesome guysssss',
-        `Yeah, I'm being typed`
-      ],
-      myText: 'This is the initial text (not typed)',
-      solidCursor: {
-            blinking: false,
-            cursor: "|",
-            color: "black",
+    data() {
+        return {
+            possibleTexts: [
+                `I should be a professional typer`,
+                'Awesome guysssss',
+                `Yeah, I'm being typed`
+            ],
+            myText: 'This is the initial text (not typed)',
+            solidCursor: {
+                blinking: false,
+                cursor: '|',
+                color: 'black',
+            }
+        }
+    },
+    methods: {
+        type() {
+            this.possibleTexts.push(this.possibleTexts.shift())
+            this.myText = this.possibleTexts[0]
         }
     }
-  },
-  methods: {
-    type() {
-      this.possibleTexts.push(this.possibleTexts.shift())
-      this.myText = this.possibleTexts[0]
-    }
-  }
 }
 </script>
 

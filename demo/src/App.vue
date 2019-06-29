@@ -12,18 +12,18 @@ import Framerates from './Framerates'
 import Rewriting from './Rewriting'
 
 export default {
-  name: "app",
-  components: {
-    Framerates,
-    Rewriting
-  },
-  data() {
-    return {
-    }
-  },
-  methods: {
+    name: 'App',
+    components: {
+        Framerates,
+        Rewriting
+    },
+    data() {
+        return {
+        }
+    },
+    methods: {
 
-  }
+    }
 }
 </script>
 

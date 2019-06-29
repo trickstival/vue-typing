@@ -1,17 +1,20 @@
 {
-    "extends": "eslint:recommended",
-    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/recommended"
+    ],
     "env": {
         "es6": true,
         "browser": true,
         "jest/globals": true
     },
     "parserOptions": {
+        "parser": "babel-eslint",
         "ecmaFeatures": {
             "modules": true
         }
     },
-    "plugins": ["jest"],
+    "plugins": ["jest", "vue"],
     "globals": {
         "window": true
     },

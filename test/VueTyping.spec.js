@@ -16,7 +16,7 @@ const getSandbox = (wrapper) => {
     function testDeleting (text, framerate = 1) {
         let currentText = text
         let idx = text.length
-        for (const _ of text + '.') {
+        for (let i = 0; i < text.length + 1; i++) {
             requestAnimationFrame.step(framerate)
             currentText = currentText.substr(0, idx)
             expect(wrapper.element.textContent).toBe(currentText)
@@ -80,7 +80,7 @@ describe('Basic rendering', () => {
 // Cursor Rendering
 
 describe('cursor Rendering', () => {
-    let Vue, wrapper, sandbox
+    let Vue, wrapper
     beforeEach(() => {
         Vue = createLocalVue()
         wrapper = mount(VueTyping, {
@@ -96,7 +96,6 @@ describe('cursor Rendering', () => {
             },
             localVue: Vue
         })
-        sandbox = getSandbox(wrapper)
     })
 
     it('renders initial content', () => {

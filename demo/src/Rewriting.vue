@@ -1,24 +1,27 @@
 <template>
-    <section class="rewriting">
-        <div>
-            Simple rewriting:
-            <div>
-                <vue-typing :text="basicRewriteText" :rewrite="true" />
-            </div>
-            <button @click="rewrite">
-                rewrite once
-            </button>
-        </div>
-        <div>
-            Automatic rewriting (using AutoTyping Component)
-            <div>
-                <auto-typing
-                    :textList="['First Text', 'Second one', 'Third text']"
-                    :framerate="4"
-                />
-            </div>
-        </div>
-    </section>
+  <section class="rewriting">
+    <div>
+      Simple rewriting:
+      <div>
+        <vue-typing
+          :text="basicRewriteText"
+          :rewrite="true"
+        />
+      </div>
+      <button @click="rewrite">
+        rewrite once
+      </button>
+    </div>
+    <div>
+      Automatic rewriting (using AutoTyping Component)
+      <div>
+        <auto-typing
+          :text-list="['First Text', 'Second one', 'Third text']"
+          :framerate="4"
+        />
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
