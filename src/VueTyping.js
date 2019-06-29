@@ -1,8 +1,24 @@
 import { FrameIterator } from './utils'
 
 export default {
-    render (h) {
-        return h('span', this.speechFrameFragment)
+    render(h) {
+        if (this.disableCursor) {
+            return h("div", [h("span", this.speechFrameFragment)])
+        } else
+            return h("div", [
+                h("span", this.speechFrameFragment),
+                h(
+                    "span",
+                    {
+                        style: {
+                            opacity: this.cursorOpacity,
+                            color: this.cursorOptions.color
+                        },
+                        class: { "typing-cursor": true }
+                    },
+                    this.cursorOptions.cursor
+                )
+            ])
     },
     props: {
         framerate: {
@@ -16,20 +32,40 @@ export default {
         rewrite: {
             type: Boolean,
             default: false
+        },
+        cursorOptions: {
+            type: Object,
+            default: () => {
+                return {
+                    blinking: true,
+                    cursor: "|",
+                    color: "black",
+                    framerate: 24
+                }
+            }
+        },
+        disableCursor: {
+            type: Boolean,
+            default: true
         }
     },
-    data () {
+    data() {
         return {
             speechFrameFragment: '',
-            frameIterator: new FrameIterator()
+            frameIterator: new FrameIterator(),
+            cursorFrameIterator: new FrameIterator(),
+            cursorOpacity: 0
         }
     },
     watch: {
-        text () {
+        text() {
             this.scheduleTyping()
         },
-        framerate () {
+        framerate() {
             this.scheduleTyping()
+        },
+        cursorOptions() {
+            this.blinkingCursor()
         }
     },
     methods: {
@@ -65,12 +101,38 @@ export default {
                         breakLoop()
                         return
                     }
+                    console.log('oi')
                     this.speechFrameFragment = this.speechFrameFragment.substr(0, idx)
                     idx--
                 }, this.framerate)
+        },
+        blinkingCursor() {
+            const { framerate } = this.cursorOptions || this
+            const { blinking } = this.cursorOptions
+            let blinkingToggle = false
+
+            if (!blinking) {
+                this.cursorOpacity = 1
+                return
+            }
+
+            this.cursorFrameIterator
+                .schedule(() => {
+                    blinkingToggle = !blinkingToggle
+                    this.cursorOpacity = blinkingToggle ? 1 : 0
+                }, framerate)
         }
     },
-    created () {
+    created() {
         this.speechFrameFragment = this.text
+        if (!this.disableCursor) {
+            this.blinkingCursor()
+        }
     }
+}
+
+export const cursorSpeed = {
+    slow: 40,
+    normal: 24,
+    fast: 5
 }
