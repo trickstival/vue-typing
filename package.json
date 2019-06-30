@@ -6,12 +6,15 @@
   "repository": "https://github.com/trickstival/vue-typing",
   "author": "trickstival",
   "license": "MIT",
+  "types": "types/index.d.ts",
   "scripts": {
     "dev": "jest --watchAll",
     "test:unit": "jest",
-    "lint": "eslint --color --ext=js,vue ."
+    "lint": "eslint --color --ext=js,vue .",
+    "types": "tsc -p ./types/test/tsconfig.json"
   },
   "dependencies": {
+    "typescript": "^3.5.2",
     "vue": "^2.6.10"
   },
   "devDependencies": {
@@ -39,6 +42,7 @@
   },
   "files": [
     "src",
+    "types",
     "LICENSE"
   ]
 }
