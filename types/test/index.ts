@@ -1,12 +1,16 @@
 import Vue from 'vue'
-import VueTyping from '../'
+import VueTyping, { AutoTyping } from '../'
 
 Vue.component('VueTyping', VueTyping);
 
 new Vue({
-  components: { VueTyping },
+  components: { VueTyping, AutoTyping },
 })
 
 Vue.extend({
-  extends: VueTyping
+  extends: VueTyping,
+})
+
+Vue.extend({
+    extends: AutoTyping,
 })
